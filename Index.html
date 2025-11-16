@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabir AI To-Do List</title>
+
+    <!-- PWA Theme Color -->
+    <meta name="theme-color" content="#ffffff">
+
+    <!--
+    INLINED MANIFEST
+    This tells your phone it's an app.
+    -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkthYmlyIFRvLURvIiwKICAic2hvcnRfbmFtZSI6ICJLYWJpciIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZTBmMmZlIiwKICAidGhlbWVfY29sb3IiOiAiI2ZmZmZmZiIsCiAgImRlc2NyaXB0aW9uIjogIkFuIEFJLXBvd2VyZWQgdG8tZG8gbGlzdC4iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSI0MCIgZmlsbD0iIzAzYThlZSI+PC9yZWN0Pjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMjAiIGZpbGw9IiNmZmYiIHg9IjUwJSIgeT0iNTQlIj5LPC90ZXh0Pjwvc3ZnPg==",CiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NC,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTAiIGZpbGw9IiMwM2E4ZWUiPjwvcmVjdD48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzUwIiBmaWxsPSIjZmZmIiB4PSI1MCUiIHk9IjU0JSI+SzwvdGV4dD48L3N2Zz4=",CiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+    
+    <!--
+    INLINED ICON
+    This is the fallback icon your browser's tab will use.
+    -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iIzAzYThlZSI+PC9yZWN0Pjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iI2ZmZiIgeD0iNTAlIiB5PSI1NCUiPks8L3RleHQ+PC9zdmc+">
+
+
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        pulse: {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.7, transform: 'scale(1.05)' },
+                        },
+                        'gradient-pan': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        }
+                    },
+                    animation: {
+                        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient-pan': 'gradient-pan 15s ease infinite',
+                    }
+                },
+            },
+        }
+    </script>
+    
+    <!-- Use Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-size: 200% 200%;
+        }
+        .task-item {
+            transition: all 0.3s ease;
+        }
+        .task-item.completed span {
+            text-decoration: line-through;
+            color: #9ca3af; /* gray-400 */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-white to-blue-200 text-gray-900 h-full flex items-center justify-center p-4 animate-gradient-pan">
+
+    <!-- Main App Card: Updated to solid white card -->
+    <div class="w-full max-w-lg bg-white text-gray-900 rounded-2xl shadow-xl p-6 md:p-8">
+        <!-- Header: Kabir AI Status -->
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Kabir AI To-Do</h1>
+            <div id="kabir-status" class="flex items-center space-x-2">
+                <span id="kabir-status-text" class="text-sm text-gray-500">Offline</span>
+                <div id="kabir-status-light" class="w-3 h-3 bg-gray-500 rounded-full transition-colors"></div>
+            </div>
+        </div>
+
+        <!-- Kabir's Feedback Message -->
+        <div id="kabir-message" class="min-h-[2.5rem] bg-blue-50 rounded-lg p-3 text-center mb-4 hidden">
+            <p id="kabir-message-text" class="text-sm text-blue-700"></p>
+        </div>
+
+        <!-- Manual Task Input -->
+        <form id="add-task-form" class="flex space-x-3 mb-6">
+            <input 
+                type="text" 
+                id="task-input" 
+                placeholder="Add a task manually..."
+                class="flex-1 bg-gray-100 border border-gray-300 text-gray-900 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+            >
+            <button 
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+                Add
+            </button>
+        </form>
+
+        <!-- Start Listening Button -->
+        <button 
+            id="start-listening-btn"
+            class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg"
+        >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 4a3 3 0 016 0v6a3 3 0 11-6 0V4zM1a1 1 0 000 2v3a6.957 6.957 0 001.07 3.94 1 1 0 101.812-.878A4.977 4.977 0 013 11V9a1 1 0 00-2 0v2a5 5 0 005 5v3a1 1 0 102 0v-3a5 5 0 005-5V9a1 1 0 10-2 0v2a4.977 4.977 0 01-1.888 3.938 1 1 0 101.812.878A6.957 6.957 0 0017 11V9a1 1 0 10-2 0v2a1 1 0 102 0V9a1 1 0 00-1-1 1 1 0 100-2V4a5 5 0 00-10 0v1a1 1 0 102 0V4a3 3 0 016 0v6a3 3 0 11-6 0V4z"></path></svg>
+            <span>Start Listening</span>
+        </button>
+
+        <!-- To-Do List -->
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Tasks</h2>
+            <ul id="task-list" class="space-y-3">
+                <p id="loading-tasks" class="text-gray-500">Loading tasks...</p>
+            </ul>
+        </div>
+
+        <!-- User ID Footer -->
+        <div class="mt-6 pt-4 border-t border-gray-200 text-center">
+            <p class="text-xs text-gray-400">Your User ID: <span id="user-id" class="font-mono">Not logged in</span></p>
+            <p class="text-xs text-gray-400 mt-1">Kabir can only listen while this tab is active.</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            addDoc, 
+            setDoc, 
+            deleteDoc, 
+            onSnapshot, 
+            collection, 
+            query,
+            serverTimestamp,
+            setLogLevel
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Config & App ID ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-kabir-todo';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- App State ---
+        let app, auth, db;
+        let userId = null;
+        let tasks = []; // Local cache of tasks
+        let taskCollectionRef;
+        let isListeningActive = false; // Flag to control listening state
+
+        // --- DOM Elements ---
+        const taskListEl = document.getElementById('task-list');
+        const taskInputEl = document.getElementById('task-input');
+        const addTaskForm = document.getElementById('add-task-form');
+        const loadingTasksEl = document.getElementById('loading-tasks');
+        const userIdEl = document.getElementById('user-id');
+        const startListeningBtn = document.getElementById('start-listening-btn');
+        const kabirStatusText = document.getElementById('kabir-status-text');
+        const kabirStatusLight = document.getElementById('kabir-status-light');
+        const kabirMessageEl = document.getElementById('kabir-message');
+        const kabirMessageTextEl = document.getElementById('kabir-message-text');
+
+        // --- Speech Recognition (Kabir AI) ---
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = true; // Keep listening
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isListeningActive = true; // Mark as active
+                setKabirStatus('Listening...', 'bg-green-500', true);
+                startListeningBtn.textContent = 'Listening...';
+                startListeningBtn.classList.add('animation-pulse');
+                startListeningBtn.disabled = true;
+            };
+
+            recognition.onend = () => {
+                if (isListeningActive) {
+                    // It ended, but it *should* be active (e.g., network error, no-speech timeout)
+                    // Just restart it, if we have a user.
+                    if(userId) {
+                        try {
+                            recognition.start();
+                        } catch(e) {
+                            console.warn("Recognition restart failed, likely manual stop.", e);
+                        }
+                    }
+                } else {
+                    // It ended because we *told* it to stop (isListeningActive = false)
+                    // So, update UI to 'Idle' state.
+                    const statusText = userId ? 'Idle' : 'Offline';
+                    const statusColor = userId ? 'bg-gray-400' : 'bg-gray-500';
+                    setKabirStatus(statusText, statusColor);
+                    
+                    startListeningBtn.textContent = 'Start Listening';
+                    startListeningBtn.classList.remove('animation-pulse');
+                    startListeningBtn.disabled = false;
+                }
+            };
+
+            recognition.onerror = (event) => {
+                if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                    showKabirMessage("I can't listen. Please grant microphone permission.");
+                    setKabirStatus('Mic Blocked', 'bg-red-500');
+                    isListeningActive = false; // Stop trying to restart
+                } else if (event.error === 'no-speech') {
+                    // This is normal, onend will handle the restart.
+                } else {
+                    console.error('Speech recognition error:', event.error);
+                }
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+                console.log('Heard:', transcript);
+
+                // Check for wake word "Kabir"
+                if (transcript.startsWith('kabir')) {
+                    const command = transcript.substring('kabir'.length).trim();
+                    processCommand(command);
+                }
+            };
+
+        } else {
+            console.error('Speech Recognition not supported in this browser.');
+            startListeningBtn.textContent = 'Speech Not Supported';
+            startListeningBtn.disabled = true;
+            setKabirStatus('Not Supported', 'bg-red-500');
+        }
+
+        // --- Kabir AI Logic ---
+        function processCommand(command) {
+            // 1. Stop Listening
+            if (command === 'stop listening' || command === 'go to sleep' || command === 'stop') {
+                isListeningActive = false; // Set flag to stop
+                recognition.stop(); // This triggers onend, which handles UI cleanup
+                showKabirMessage("OK, I'm sleeping. Click 'Start Listening' to wake me up.");
+                return;
+            }
+
+            // 2. Add Task
+            if (command.startsWith('add ') || command.startsWith('at ')) {
+                let taskText = command.substring(command.indexOf(' ') + 1);
+                taskText = taskText.replace('to my to-do list', '').replace('to my list', '').trim();
+                
+                if (taskText) {
+                    handleAddTask(taskText);
+                    showKabirMessage(`Added "${taskText}" to your list.`);
+                } else {
+                    showKabirMessage("What task should I add?");
+                }
+                return;
+            }
+
+            // 3. Complete Task
+            if (command.startsWith('complete ') || command.startsWith('check off ') || command.startsWith('finish ')) {
+                let taskText = command.substring(command.indexOf(' ') + 1).trim();
+                const task = findTaskByText(taskText);
+                if (task) {
+                    handleUpdateTask(task.id, true);
+                    showKabirMessage(`Completed "${task.text}".`);
+                } else {
+                    showKabirMessage(`I couldn't find the task "${taskText}".`);
+                }
+                return;
+            }
+            
+            // 4. Delete/Remove Task
+            if (command.startsWith('delete ') || command.startsWith('remove ')) {
+                let taskText = command.substring(command.indexOf(' ') + 1).trim();
+                const task = findTaskByText(taskText);
+                if (task) {
+                    handleDeleteTask(task.id);
+                    showKabirMessage(`Removed "${taskText}" from your list.`);
+                } else {
+                    showKabirMessage(`I couldn't find the task "${taskText}".`);
+                }
+                return;
+            }
+
+            // Fallback
+            showKabirMessage("Sorry, I didn't understand that command.");
+        }
+
+        function findTaskByText(text) {
+            // Find the closest match in the local task cache
+            return tasks.find(t => t.text.toLowerCase().includes(text));
+        }
+
+        function setKabirStatus(text, colorClass, pulse = false) {
+            kabirStatusText.textContent = text;
+            kabirStatusLight.className = `w-3 h-3 ${colorClass} rounded-full transition-colors`;
+            if (pulse) {
+                kabirStatusLight.classList.add('animate-pulse');
+            } else {
+                kabirStatusLight.classList.remove('animate-pulse');
+            }
+        }
+
+        let messageTimeout;
+        function showKabirMessage(text) {
+            kabirMessageTextEl.textContent = text;
+            kabirMessageEl.classList.remove('hidden');
+
+            if (messageTimeout) {
+                clearTimeout(messageTimeout);
+            }
+            messageTimeout = setTimeout(() => {
+                kabirMessageEl.classList.add('hidden');
+            }, 4000);
+        }
+
+        // --- UI Rendering ---
+        function renderTasks(tasksToRender) {
+            // Store local cache for voice commands
+            tasks = tasksToRender;
+
+            taskListEl.innerHTML = ''; // Clear list
+            if (tasksToRender.length === 0) {
+                loadingTasksEl.textContent = 'Your to-do list is empty. Add one!';
+                taskListEl.appendChild(loadingTasksEl);
+            } else {
+                loadingTasksEl.textContent = ''; // Clear loading/empty text
+                
+                // Sort by creation date
+                tasksToRender.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                
+                tasksToRender.forEach(task => {
+                    const li = document.createElement('li');
+                    li.className = `task-item flex items-center justify-between bg-white border border-gray-200 p-4 rounded-lg shadow-sm ${task.completed ? 'completed' : ''}`;
+                    li.dataset.id = task.id;
+
+                    li.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <input 
+                                type="checkbox" 
+                                class="task-checkbox h-5 w-5 rounded bg-gray-100 border-gray-300 text-blue-600 focus:ring-blue-500" 
+                                ${task.completed ? 'checked' : ''}
+                            >
+                            <span class="text-gray-800">${task.text}</span>
+                        </div>
+                        <button class="delete-btn text-gray-400 hover:text-red-500 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        </button>
+                    `;
+                    taskListEl.appendChild(li);
+                });
+            }
+        }
+
+        // --- Firestore CRUD ---
+        async function handleAddTask(taskText) {
+            if (!taskText || !userId) return;
+            try {
+                await addDoc(taskCollectionRef, {
+                    text: taskText,
+                    completed: false,
+                    createdAt: serverTimestamp()
+                });
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                showKabirMessage("Error: Could not add task.");
+            }
+        }
+
+        async function handleUpdateTask(docId, completed) {
+            if (!userId) return;
+            const taskDocRef = doc(db, taskCollectionRef.path, docId);
+            try {
+                await setDoc(taskDocRef, { completed }, { merge: true });
+            } catch (e) {
+                console.error("Error updating document: ", e);
+                showKabirMessage("Error: Could not update task.");
+            }
+        }
+
+        async function handleDeleteTask(docId) {
+            if (!userId) return;
+            const taskDocRef = doc(db, taskCollectionRef.path, docId);
+            try {
+                await deleteDoc(taskDocRef);
+            } catch (e) {
+                console.error("Error deleting document: ", e);
+                showKabirMessage("Error: Could not delete task.");
+            }
+        }
+
+        // --- Event Listeners ---
+        addTaskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const taskText = taskInputEl.value.trim();
+            if (taskText) {
+                handleAddTask(taskText);
+                taskInputEl.value = '';
+            }
+        });
+
+        taskListEl.addEventListener('click', (e) => {
+            const target = e.target;
+            const taskLi = target.closest('li');
+            if (!taskLi) return;
+
+            const docId = taskLi.dataset.id;
+
+            if (target.classList.contains('delete-btn') || target.closest('.delete-btn')) {
+                handleDeleteTask(docId);
+            } else if (target.classList.contains('task-checkbox')) {
+                const isCompleted = target.checked;
+                handleUpdateTask(docId, isCompleted);
+            }
+        });
+
+        startListeningBtn.addEventListener('click', () => {
+            if (recognition) {
+                isListeningActive = true; // Set flag
+                recognition.start();
+            }
+        });
+
+        // --- Initialization ---
+        async function initialize() {
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('Debug'); // Enable Firestore logging
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        console.log('User is signed in:', user.uid);
+                        userId = user.uid;
+                        userIdEl.textContent = userId;
+
+                        // Set up Firestore collection reference
+                        taskCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/todos`);
+
+                        // Start listening for tasks
+                        const q = query(taskCollectionRef);
+                        onSnapshot(q, (snapshot) => {
+                            const tasksData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                            renderTasks(tasksData);
+                        }, (error) => {
+                            console.error("Error listening to tasks:", error);
+                            showKabirMessage("Error: Could not load tasks.");
+                        });
+
+                        // Enable voice controls
+                        setKabirStatus('Idle', 'bg-gray-400');
+                        startListeningBtn.disabled = false;
+
+                    } else {
+                        console.log('User is signed out.');
+                        userId = null;
+                        userIdEl.textContent = 'Not logged in';
+                        renderTasks([]); // Clear tasks
+                        isListeningActive = false; // Stop listening if user logs out
+                        if(recognition) recognition.stop();
+                    }
+                });
+
+                // Sign in
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log('Signed in with custom token.');
+                } else {
+                    await signInAnonymously(auth);
+                    console.log('Signed in anonymously.');
+                }
+
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                document.body.innerHTML = `<div class="text-red-500 text-center p-10">Error initializing app. Please check console.</div>`;
+            }
+        }
+
+        // --- INLINED SERVICE WORKER ---
+        // This registers the app to work offline
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'kabir-todo-v1';
+                // Cache the main page and critical assets
+                const urlsToCache = [
+                './', // This caches the index.html
+                'https://cdn.tailwindcss.com',
+                'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
+                ];
+                self.addEventListener('install', event => {
+                event.waitUntil(
+                    caches.open(CACHE_NAME).then(cache => {
+                    return cache.addAll(urlsToCache);
+                    })
+                );
+                });
+                self.addEventListener('fetch', event => {
+                event.respondWith(
+                    caches.match(event.request).then(response => {
+                    return response || fetch(event.request);
+                    })
+                );
+                });
+            `;
+            // Create a "virtual" file for the service worker
+            const swBlob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(swBlob);
+
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(swUrl)
+                .then(reg => console.log('ServiceWorker registration successful.', reg))
+                .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+
+        // Start the app
+        initialize();
+
+    </script>
+</body>
+</html>
+
+
