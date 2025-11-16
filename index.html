@@ -491,7 +491,13 @@ const initialAuthToken = null;
 
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
-                document.body.innerHTML = `<div class="text-red-500 text-center p-10">Error initializing app. Please check console.</div>`;
+                // NEW DEBUG CODE:
+document.body.innerHTML = `
+    <div class="bg-white p-10 rounded-lg shadow-xl text-center">
+        <h1 class="font-bold text-lg text-red-600">Error initializing app:</h1>
+        <p class="mt-4 font-mono bg-red-100 text-red-800 p-4 rounded break-all">${error.toString()}</p>
+    </div>`;
+
             }
         }
 
