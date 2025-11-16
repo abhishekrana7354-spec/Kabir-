@@ -149,10 +149,16 @@
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Config & App ID ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-kabir-todo';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
+        const firebaseConfig = {
+  apiKey: "AIzaSyCQEEomqXRlyYOUIDGPDoOc8g...",
+  authDomain: "kabir-cd8b0.firebaseapp.com",
+  projectId: "kabir-cd8b0",
+  storageBucket: "kabir-cd8b0.firebasestorage.app",
+  messagingSenderId: "871393242280",
+  appId: "1:871393242280:web:e8a42851e09c64..."
+};
+const appId = firebaseConfig.appId || 'default-kabir-todo';
+const initialAuthToken = null;
         // --- App State ---
         let app, auth, db;
         let userId = null;
