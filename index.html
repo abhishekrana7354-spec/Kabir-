@@ -148,15 +148,25 @@
             setLogLevel
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // --- Firebase Config & App ID 
         // --- Firebase Config & App ID ---
-        const firebaseConfig = {
-  apiKey: "AIzaSyCQEEomqXRlyYOUIDGPDoOc8g...",
+
+// THIS IS THE NEW, CORRECT KEY:
+const firebaseConfig = {
+  apiKey: "AIzaSyCQEFEoWdXR1yOUIDGPD0oC0qgsOpOQn3U",
   authDomain: "kabir-cd8b0.firebaseapp.com",
   projectId: "kabir-cd8b0",
   storageBucket: "kabir-cd8b0.firebasestorage.app",
-  messagingSenderId: "871393242280",
-  appId: "1:871393242280:web:e8a42851e09c64..."
+  messagingSenderId: "871393242260",
+  appId: "1:871393242260:web:ea4202851e09c64afb11881"
 };
+
+// THESE TWO LINES STAY:
+const appId = firebaseConfig.appId || 'default-kabir-todo';
+const initialAuthToken = null;
+
+// --- App State ---
+...
 const appId = firebaseConfig.appId || 'default-kabir-todo';
 const initialAuthToken = null;
         // --- App State ---
